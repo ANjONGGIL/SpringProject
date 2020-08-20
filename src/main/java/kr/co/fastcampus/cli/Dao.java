@@ -1,17 +1,14 @@
-package kr.co.fastcampus;
+package kr.co.fastcampus.cli;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Main {
-    private static Logger logger = LoggerFactory.getLogger(Main.class);
-
-    public static void main(String[] args) throws ClassNotFoundException {
-        logger.info("Hello World!");
+@Slf4j
+public class Dao {
+    public void run() throws ClassNotFoundException {
+        log.info("Hello World!");
 
         Class.forName("org.h2.Driver");
         var url = "jdbc:h2:~/test;MODE=MySQL";
@@ -22,7 +19,7 @@ public class Main {
             connection.setAutoCommit(false);
             statement.execute("create table member(id int auto_increment, username varchar(255) not null, password varchar(255) not null, primary key(id))");
             try {
-                statement.executeUpdate("insert into member(username, password) values('Kimsejong', '1234')");
+                statement.executeUpdate("insert into member(username, password) values('Anjonggil', '1234')");
                 connection.commit();
             } catch (SQLException e) {
                 connection.rollback();
@@ -30,9 +27,9 @@ public class Main {
 
             var resultSet = statement.executeQuery("select id, username, password from member");
             while (resultSet.next()) {
-                var member = new Member(resultSet);
+                var member = new Member("Anjonggil","1234");
 
-                logger.info(member.toString());
+                log.info(member.toString());
             }
 
         } catch (SQLException e) {
