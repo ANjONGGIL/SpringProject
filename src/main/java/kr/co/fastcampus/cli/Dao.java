@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 @Slf4j
 public class Dao {
+
     public void run() throws ClassNotFoundException {
         log.info("Hello World!");
 
