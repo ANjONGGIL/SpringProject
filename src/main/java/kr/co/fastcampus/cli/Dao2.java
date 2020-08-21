@@ -3,15 +3,14 @@ package kr.co.fastcampus.cli;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 @Slf4j
-public class Dao {
+public class Dao2 {
 
     private Connection connection;
 
-    public Dao(Connection connection){
+    public Dao2(Connection connection){
         this.connection = connection;
     }
     public void run() throws ClassNotFoundException, SQLException {

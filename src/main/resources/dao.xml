@@ -4,16 +4,23 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id = "daoFactory" class="kr.co.fastcampus.cli.DaoFactory"/>
-    <bean id="dao" class="kr.co.fastcampus.cli.Dao" lazy-init="true"
-          factory-bean="daoFactory" factory-method="createDao"/>
+    <bean id = "connectionFactory" class="kr.co.fastcampus.cli.ConnectionFactory">
+        <constructor-arg name ="driverClass" value="org.h2.Driver"/>
+        <constructor-arg name ="url" value="jdbc:h2:mem:test"/>
+        <constructor-arg name ="url" value="sa"/>
+        <constructor-arg name ="url" value=""/>
+    </bean>
 
-    <bean id="a" class="kr.co.fastcampus.cli.di.A">
-        <constructor-arg ref="b"/>
+    <bean id="connection" class="java.sql.Connection"
+          factory-bean="connectionFactory"
+          factory-method="createConnection"/>
+
+    <bean id="dao" class="kr.co.fastcampus.cli.Dao" lazy-init="true">
+            <constructor-arg ref="connection"/>
     </bean>
-    <bean id = "b" class="kr.co.fastcampus.cli.di.B">
-        <constructor-arg value="true"></constructor-arg>
-    </bean>
+
+    <bean id="dao2" class="kr.co.fastcampus.cli.Dao2" autowire="constructor"/>
+
 
 
 </beans>
