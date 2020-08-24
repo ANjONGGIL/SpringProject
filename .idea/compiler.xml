@@ -10,5 +10,6 @@
         <module name="springbasic" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="12" />
   </component>
 </project>

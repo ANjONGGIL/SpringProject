@@ -14,6 +14,13 @@ public class Dao {
     public Dao(Connection connection){
         this.connection = connection;
     }
+
+    void init(){
+        log.info("dao init");
+    }
+    void destroy(){
+        log.info("dao destroy");
+    }
     public void run() throws ClassNotFoundException, SQLException {
         log.info("Hello World!");
         var statement = connection.createStatement();

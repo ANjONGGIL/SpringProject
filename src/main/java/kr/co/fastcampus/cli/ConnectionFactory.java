@@ -1,15 +1,21 @@
 package kr.co.fastcampus.cli;
 
+import lombok.Getter;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionFactory {
+@Getter
+public class ConnectionFactory implements DisposableBean {
     private String diverClass;
     public String url;
     public String user;
     public String password;
+    private Connection connection=null;
 
     public ConnectionFactory(String driverClass,String url, String user, String password) {
         this.diverClass = driverClass;
@@ -25,5 +31,18 @@ public class ConnectionFactory {
             e.printStackTrace();
         }
         return DriverManager.getConnection(this.url,this.user,this.password);
+    }
+
+
+
+    public void init() throws Exception {
+        this.connection = createConnection();
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        if (this.connection != null){
+            this.connection.close();
+        }
     }
 }
