@@ -20,7 +20,14 @@
             <constructor-arg ref="connection"/>
     </bean>
 
-    <bean id="dao2" class="kr.co.fastcampus.cli.Dao2" autowire="constructor"/>
+    <bean class="kr.co.fastcampus.cli.B">
+        <qualifier value="b1"/>
+    </bean>
+    <bean class="kr.co.fastcampus.cli.B">
+        <qualifier value="b2"/>
+    </bean>
+
+    <bean class = "kr.co.fastcampus.cli.A"/>
 
 
 
