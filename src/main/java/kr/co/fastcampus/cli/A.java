@@ -13,15 +13,15 @@ import javax.annotation.PostConstruct;
 @Component
 public class A {
 
-    @Autowired
-    @Qualifier("b1")
     private B b;
 
-    @Value("${catalog.name}")
-    String catalogName;
 
     @Autowired
     private ApplicationContext context;
+
+    public A(B b) {
+        this.b = b;
+    }
 
     @PostConstruct
     void init(){

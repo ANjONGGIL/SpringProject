@@ -1,21 +1,28 @@
 package kr.co.fastcampus.cli;
 
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.sql.Connection;
 
 @Configuration
-@ComponentScan(basePackages = "ko.co.fastcampus.cli")
 public class AppConfig {
 
     @Bean
-    @Qualifier("b1")
-    public B b1(){
+    public B b(){
         return new B();
     }
 
+    @Bean(initMethod = "init",destroyMethod = "destroy")
+    public A a(B b){
+        return new A(b);
+    }
     @Bean
-    @Qualifier("b2")
-    public B b2(){
-        return new B();
+    public Connection connection(ConnectionFactory connectionFactory){
+        return connectionFactory.getConnection();
+    }
+    @Bean
+    public Dao dao(Connection connection){
+        return new Dao(connection);
     }
 }
