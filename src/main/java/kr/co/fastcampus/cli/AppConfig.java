@@ -2,6 +2,7 @@ package kr.co.fastcampus.cli;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import java.sql.Connection;
 
@@ -9,20 +10,17 @@ import java.sql.Connection;
 public class AppConfig {
 
     @Bean
-    public B b(){
-        return new B();
-    }
-
-    @Bean(initMethod = "init",destroyMethod = "destroy")
-    public A a(B b){
-        return new A(b);
-    }
-    @Bean
     public Connection connection(ConnectionFactory connectionFactory){
         return connectionFactory.getConnection();
     }
+
     @Bean
     public Dao dao(Connection connection){
         return new Dao(connection);
+    }
+
+    @Bean
+    public LocalValidatorFactoryBean localValidatorFactoryBean(){
+        return new LocalValidatorFactoryBean();
     }
 }
