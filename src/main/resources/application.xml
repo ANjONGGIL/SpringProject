@@ -10,11 +10,16 @@
 
     <aop:config>
         <aop:aspect id="myAspect" ref="aBean">
-            <aop:pointcut id="businessService" expression="execution(* kr.co.fastcampus.cli.app.AopBean.log()"/>
+            <aop:pointcut id="businessService" expression="execution(* kr.co.fastcampus.cli.TransactionBean.*(.. ))"/>
             <aop:before pointcut-ref="dataAccessOperation" method="beforeLog"/>
             <aop:after pointcut-ref="dataAccessOperation" method="afterLog"/>
             <aop:after-returning pointcut-ref="businessService" method="afterReturningLog"/>
             <aop:after-throwing pointcut-ref="businessService" method="afterThrowingLog"/>
         </aop:aspect>
     </aop:config>
+
+    <bean id="aBean" class="kr.co.fastcampus.cli.aop.AopBean">
+    </bean>
+    <bean id="service" class="kr.co.fastcampus.cli.TransactionBean">
+    </bean>
 </beans>

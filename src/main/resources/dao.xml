@@ -18,7 +18,7 @@
 <!--          factory-bean="connectionFactory"-->
 <!--          factory-method="createConnection"/>-->
 
-<!--    <bean id="dao" class="kr.co.fastcampus.cli.Dao" lazy-init="true">-->
+<!--    <bean id="dao" class="kr.co.fastcampus.cli.dao.Dao" lazy-init="true">-->
 <!--            <constructor-arg ref="connection"/>-->
 <!--    </bean>-->
 

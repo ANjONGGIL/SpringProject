@@ -2,6 +2,8 @@ package kr.co.fastcampus.cli;
 
 
 
+import kr.co.fastcampus.cli.config.AppConfig;
+import kr.co.fastcampus.cli.dao.Dao;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 @Slf4j
@@ -21,11 +25,24 @@ public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.scan("kr.co.fastcampus.cli");
-        context.refresh();
-        context.register(AppDevConfig.class,AppDefaultConfig.class,AppConfig.class);
+        context.register(AppConfig.class);
+        context.register(TransactionBean.class);
+
+        createTable(context.getBean(DataSource.class).getConnection());
+
         Dao dao = context.getBean(Dao.class);
-        dao.run();
-        context.close();
-    }
+        try{
+            dao.insert();
+        }catch (Exception e) {
+            dao.print();
+
+            context.close();
+        }
+
+
 }
+
+    private static void createTable(Connection connection) throws SQLException {
+        connection.createStatement().execute("create table member(id int auto_increment,username varchar(255) not null, password varchar(255) not null,)");
+    }
+    }
