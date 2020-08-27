@@ -1,9 +1,8 @@
 package kr.co.fastcampus.cli;
 
 
-
 import kr.co.fastcampus.cli.config.AppConfig;
-import kr.co.fastcampus.cli.dao.Dao;
+import kr.co.fastcampus.cli.controller.MemberController;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +14,7 @@ import org.springframework.context.annotation.FilterType;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 @Slf4j
 @Configuration
@@ -26,19 +26,21 @@ public class Main {
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         context.register(AppConfig.class);
-        context.register(TransactionBean.class);
 
         createTable(context.getBean(DataSource.class).getConnection());
 
-        Dao dao = context.getBean(Dao.class);
-        try{
-            dao.insert();
-        }catch (Exception e) {
-            dao.print();
+        System.out.println("=================================");
 
-            context.close();
-        }
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("username: ");
+        String username = scanner.nextLine();
+        System.out.println("password: ");
+        String password = scanner.nextLine();
 
+        MemberController controller = context.getBean(MemberController.class);
+        controller.insert(username,password);
+        controller.print();
+        context.close();
 
 }
 

@@ -2,10 +2,13 @@ package kr.co.fastcampus.cli.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import kr.co.fastcampus.cli.dao.Dao;
+import kr.co.fastcampus.cli.controller.MemberController;
+import kr.co.fastcampus.cli.dao.MemberDao;
+import kr.co.fastcampus.cli.service.MemberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -20,8 +23,8 @@ public class AppConfig {
 
 
     @Bean
-    public Dao dao(DataSource dataSource){
-        return new Dao(dataSource);
+    public MemberDao memberDao(JdbcTemplate jdbcTemplate){
+        return new MemberDao(jdbcTemplate);
     }
 
     @Bean
@@ -37,6 +40,19 @@ public class AppConfig {
 
         HikariDataSource ds = new HikariDataSource(config);
         return new HikariDataSource(ds);
+    }
+    @Bean
+    public JdbcTemplate jdbcTemplate(DataSource dataSource){
+        return new JdbcTemplate(dataSource);
+    }
+
+    @Bean
+    public MemberService memberService(MemberDao dao){
+        return new MemberService(dao);
+    }
+    @Bean
+    public MemberController memberController(MemberService service){
+        return new MemberController(service);
     }
     @Bean
     public LocalValidatorFactoryBean localValidatorFactoryBean(){
