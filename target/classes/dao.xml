@@ -1,35 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans default-init-method="init" default-destroy-method="destroy"
-       xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-        https://www.springframework.org/schema/beans/spring-beans.xsd" xmlns:context="http://www.springframework.org/schema/beans">
-
-
-    <bean id = "connectionFactory" class="kr.co.fastcampus.cli.ConnectionFactory">
-        <constructor-arg name ="driverClass" value="org.h2.Driver"/>
-        <constructor-arg name ="url" value="jdbc:h2:mem:test"/>
-        <constructor-arg name ="url" value="sa"/>
-        <constructor-arg name ="url" value=""/>
-    </bean>
-
-    <bean id="connection" class="java.sql.Connection"
-          factory-bean="connectionFactory"
-          factory-method="createConnection"/>
-
-    <bean id="dao" class="kr.co.fastcampus.cli.Dao" lazy-init="true">
-            <constructor-arg ref="connection"/>
-    </bean>
-
-    <bean class="kr.co.fastcampus.cli.B">
-        <qualifier value="b1"/>
-    </bean>
-    <bean class="kr.co.fastcampus.cli.B">
-        <qualifier value="b2"/>
-    </bean>
-
-    <bean class = "kr.co.fastcampus.cli.A"/>
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans default-init-method="init" default-destroy-method="destroy"-->
+<!--       xmlns="http://www.springframework.org/schema/beans"-->
+<!--       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--       xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+<!--        https://www.springframework.org/schema/beans/spring-beans.xsd" xmlns:context="http://www.springframework.org/schema/beans">-->
 
 
 
-</beans>
+<!--    <bean id = "connectionFactory" class="kr.co.fastcampus.cli.ConnectionFactory">-->
+<!--        <constructor-arg name ="driverClass" value="org.h2.Driver"/>-->
+<!--        <constructor-arg name ="url" value="jdbc:h2:mem:test"/>-->
+<!--        <constructor-arg name ="url" value="sa"/>-->
+<!--        <constructor-arg name ="url" value=""/>-->
+<!--    </bean>-->
+
+<!--    <bean id="connection" class="java.sql.Connection"-->
+<!--          factory-bean="connectionFactory"-->
+<!--          factory-method="createConnection"/>-->
+
+<!--    <bean id="dao" class="kr.co.fastcampus.cli.dao.Dao" lazy-init="true">-->
+<!--            <constructor-arg ref="connection"/>-->
+<!--    </bean>-->
+
+<!--    <bean class="kr.co.fastcampus.cli.B">-->
+<!--        <qualifier value="b1"/>-->
+<!--    </bean>-->
+<!--    <bean class="kr.co.fastcampus.cli.B">-->
+<!--        <qualifier value="b2"/>-->
+<!--    </bean>-->
+
+<!--    <bean class = "kr.co.fastcampus.cli.A"/>-->
+
+
+
+<!--</beans>-->

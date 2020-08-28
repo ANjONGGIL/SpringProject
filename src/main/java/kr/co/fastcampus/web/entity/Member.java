@@ -1,6 +1,5 @@
-package kr.co.fastcampus.cli.entity;
+package kr.co.fastcampus.web.entity;
 
-import jdk.jfr.DataAmount;
 import lombok.*;
 
 import java.sql.ResultSet;
